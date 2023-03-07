@@ -1,7 +1,12 @@
 const express = require('express');
 const app = express();
-const PORT = "3000";
-const HOST = 'localhost'
+const dotenv = require('dotenv');
+dotenv.config({ path: './config.env' });
+const PORT = process.env.PORT;
+const HOST = process.env.HOST;
+require("./db/conn");
+
+
 
 // Middlewares
 const middlewares = (req, res, next) => {
