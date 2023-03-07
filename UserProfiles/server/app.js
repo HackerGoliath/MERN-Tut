@@ -6,7 +6,10 @@ const PORT = process.env.PORT;
 const HOST = process.env.HOST;
 require("./db/conn");
 
+// const User = require("./models/userSchema");
 
+app.use(express.json());
+app.use(require('./router/auth'))
 
 // Middlewares
 const middlewares = (req, res, next) => {
@@ -15,9 +18,9 @@ const middlewares = (req, res, next) => {
 }
 
 
-app.get("/", (req, res) => {
-    res.send("Home Page")
-})
+// app.get("/", (req, res) => {
+//     res.send("Home Page")
+// })
 
 app.get("/about", middlewares, (req, res) => {
     console.log("Hello from About");
