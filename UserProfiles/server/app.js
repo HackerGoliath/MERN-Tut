@@ -23,7 +23,8 @@ const middlewares = (req, res, next) => {
 // })
 
 app.get("/about", middlewares, (req, res) => {
-    console.log("Hello from About");
+    // res.cookie("jwtoken", "Deepak");
+    // console.log("Hello from About");
     res.send("About Page")
 })
 
