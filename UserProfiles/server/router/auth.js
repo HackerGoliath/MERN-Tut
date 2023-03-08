@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 require("../db/conn");
 const User = require("../models/userSchema");
 
@@ -65,6 +66,9 @@ router.post("/signin", async (req, res) => {
         // console.log(userExist)
         if (userExist) {
             const isMatch = await bcrypt.compare(password, userExist.password);
+            const token = await userExist.generateAuthToken();
+            console.log(token);
+
             if (isMatch) {
                 res.status(200).json({ error: "User Login Successfully" });
             }
