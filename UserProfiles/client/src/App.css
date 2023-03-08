@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 *{
+  font-family: 'Poppins', sans-serif;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
 }
 body{
   width: 100vw;
@@ -13,8 +13,8 @@ body{
   background-repeat: no-repeat;
   background-position: 100% 100%;
 }
-.logo{
-  mix-blend-mode:color-burn;
-}
-
+.form-control:focus {
+        border-color: #28a745;
+        box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+    } 
 

@@ -5,7 +5,7 @@ const Navbar = () => {
     return (
         <div>
             <nav className="navbar navbar-expand-lg bg-body-tertiary">
-                <div className="container-fluid">
+                <div className="container-fluid shadow-sm">
                     <NavLink className="navbar-brand mx-2" to="/">
                         <img className='.logo' src="/images/logo1.png" alt="logo" height={50} />
                     </NavLink>
