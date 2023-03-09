@@ -54,7 +54,7 @@ const Contact = () => {
 
             {/* Contact Us Form */}
             <div className="contact_form">
-                <div className="container shadow-lg rounded-3 my-5">
+                <div className="container shadow-lg rounded-3 my-5 mybg">
                     <div className="row">
                         <div className="col-lg-10 offset-lg-1">
                             <div className="contact_form_container py-5">

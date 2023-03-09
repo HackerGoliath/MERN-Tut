@@ -3,7 +3,7 @@ import React from 'react'
 const About = () => {
     return (
         <>
-            <div className="container emp_profile shadow-lg p-5 mt-5 rounded">
+            <div className="container emp_profile shadow-lg p-5 mt-5 rounded mybg">
                 <form method=''>
                     <div className="row">
                         <div className="col-md-4">
@@ -19,11 +19,11 @@ const About = () => {
                                 <p className='profile_rating mt-3 mb-5'>RANKINGS: <span>1/10</span></p>
 
                                 <ul className="nav" role="tablist">
-                                    <li className="nav-item">
-                                        <a className="nav-link active" aria-current="page" data-toggle="tab" id="home-tab" href="#home" role="tab">About</a>
+                                    <li className="nav-item mx-2">
+                                        <a class="text-decoration-none" data-bs-toggle="collapse" href="#home" role="button" aria-expanded="true" aria-controls="home">About</a>
                                     </li>
-                                    <li className="nav-item">
-                                        <a className="nav-link active" aria-current="page" data-toggle="tab" id="profile-tab" href="#profile" role="tab">Timeline</a>
+                                    <li className="nav-item mx-2">
+                                        <a class="text-decoration-none" data-bs-toggle="collapse" href="#profile" role="button" aria-expanded="false" aria-controls="profile">Timeline</a>
                                     </li>
                                 </ul>
                                 <hr />
@@ -52,7 +52,7 @@ const About = () => {
                         {/* right side data toggle */}
                         <div className="col-md-8 pl-5 about-info">
                             <div className="tab-content profile-tab" id="myTabContent">
-                                <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby='home-tab'>
+                                <div className="collapse multi-collapse show" id="home" aria-labelledby='home-tab'>
                                     <div className="row">
                                         <div className="col-md-6">
                                             <label>User ID</label>
@@ -95,7 +95,7 @@ const About = () => {
                                     </div>
                                 </div>
 
-                                <div className="tab-pane fade" id="profile" role="tabpanel" aria-labelledby='profile-tab'>
+                                <div className="collapse multi-collapse" id="profile" aria-labelledby='profile-tab'>
                                     <div className="row">
                                         <div className="col-md-6">
                                             <label>Experience</label>

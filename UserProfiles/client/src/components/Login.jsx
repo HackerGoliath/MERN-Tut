@@ -6,7 +6,7 @@ const Login = () => {
         <>
             <section>
                 <div className='container d-flex align-items-center justify-content-center mt-5'>
-                    <div className='w-50 signin-content shadow-lg rounded mt-5'>
+                    <div className='w-50 signin-content shadow-lg rounded mt-5 mybg'>
                         <div className='signin-form m-2'>
                             <h2 className='text-center fw-bolder'>
                                 <img src="/images/login.png" alt="signin" height={100} width={100} />

@@ -9,9 +9,16 @@ body{
   width: 100vw;
   height: 100vh;
   background-image: url("/images/bg1.jpg");
+  background-attachment: local;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 100% 100%;
+}
+.mybg{
+  background-color: #cfc5bf;
+}
+.btn-warning{
+  background-color: #b7ad9d !important;
 }
 .form-control:focus {
   border-color: red;

@@ -7,7 +7,7 @@ const Navbar = () => {
             <nav className="navbar navbar-expand-lg bg-body-tertiary">
                 <div className="container-fluid shadow-sm">
                     <NavLink className="navbar-brand mx-2" to="/">
-                        <img className='.logo' src="/images/logo1.png" alt="logo" height={50} />
+                        <img className='.logo' src="/images/logo4.svg" alt="logo" height={50} style={{ mixBlendMode: "color-burn" }} />
                     </NavLink>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
