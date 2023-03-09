@@ -20,11 +20,11 @@ const Login = () => {
                             <form className='p-4 register-from' id='register-form'>
                                 <div className="form-group m-4 p-1">
                                     <label htmlFor="email">Email</label>
-                                    <input type="email" className="form-control" name="email" id="email" placeholder="Enter email" />
+                                    <input type="email" className="form-control bg-transparent border-3 border-dark" name="email" id="email" placeholder="Enter email" />
                                 </div>
                                 <div className="form-group m-4 p-1">
                                     <label htmlFor="password">Password</label>
-                                    <input type="password" className="form-control" name="password" id="password" placeholder="Enter password" />
+                                    <input type="password" className="form-control bg-transparent border-3 border-dark" name="password" id="password" placeholder="Enter password" />
                                 </div>
                                 <div className="text-center">
                                     <button name="signin" id="signin" className="btn btn-warning px-5">Login</button>
