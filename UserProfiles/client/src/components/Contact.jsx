@@ -1,6 +1,59 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 const Contact = () => {
+    const [userData, setUserData] = useState({ name: "", email: "", phone: "", message: "" });
+    const userContact = async () => {
+        try {
+            const res = await fetch("http://localhost:3000/getdata", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+            });
+            const data = await res.json();
+            console.log(data);
+            setUserData({ ...userData, name: data.name, email: data.email, phone: data.phone })
+
+            if (!res.status === 200) {
+                const error = new Error(res.error);
+                throw error;
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    useEffect(() => {
+        userContact();
+    }, [])
+
+    const handleInputs = (e) => {
+        const { name, email } = e.target
+        setUserData({ ...userData, [name]: value })
+    }
+
+    // Send data to backend
+    const contactForm = async () => {
+        e.preventDefault();
+        const { name, email, phone, message } = userData;
+
+        const res = await fetch("http://localhost:3000/contact", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ name, email, phone, message })
+        });
+
+        const data = await res.json();
+
+        if (!data) {
+            console.log("Message Not Sent");
+        }
+        else {
+            console.log("Message Sent");
+            setUserData({ ...userData, message: "" });
+        }
+    }
     return (
         <>
             <div className='contact_info'>
@@ -61,20 +114,24 @@ const Contact = () => {
                                 <div className="contact_form_title text-center p-3 fs-3">
                                     Get in touch
                                 </div>
-                                <form id="contact_from">
-                                    <div class="mb-3 contact_form_name d-flex justify-content-between align-items-between">
-                                        <input type="text" className="form-control mx-2 p-3 bg-transparent border-1 border-dark contact_form_name input_field" id="contact_from_name" placeholder="Your Name" required />
+                                <form method='POST' id="contact_from">
+                                    <div className="mb-3 contact_form_name d-flex justify-content-between align-items-between">
+                                        <input name="name" type="text" className="form-control mx-2 p-3 bg-transparent border-1 border-dark contact_form_name input_field" id="contact_from_name"
+                                            onChange={handleInputs} value={userData.name} placeholder="Your Name" required />
 
-                                        <input type="email" className="form-control mx-2 p-3 bg-transparent border-1 border-dark contact_form_email input_field" id="contact_from_email" placeholder="Your Email" required />
+                                        <input name="email" type="email" className="form-control mx-2 p-3 bg-transparent border-1 border-dark contact_form_email input_field" id="contact_from_email"
+                                            onChange={handleInputs} value={userData.email} placeholder="Your Email" required />
 
-                                        <input type="tel" className="form-control mx-2 p-3 bg-transparent border-1 border-dark contact_form_phone input_field" id="contact_from_phone" placeholder="Your Phone" required />
+                                        <input name="phone" type="tel" className="form-control mx-2 p-3 bg-transparent border-1 border-dark contact_form_phone input_field" id="contact_from_phone"
+                                            onChange={handleInputs} value={userData.phone} placeholder="Your Phone" required />
                                     </div>
-                                    <div class="mb-3 contact_from_text mt-5">
-                                        <textarea class="form-control contact_form_message bg-transparent border-3 border-dark" id="exampleFormControlTextarea1" cols="30" rows="10" placeholder='Message'>
+                                    <div className="mb-3 contact_from_text mt-5">
+                                        <textarea className="form-control contact_form_message bg-transparent border-3 border-dark" id="exampleFormControlTextarea1" name="message" cols="30" rows="10"
+                                            onChange={handleInputs} value={userData.message} placeholder='Message'>
                                         </textarea>
                                     </div>
                                     <div className="contact_form_button">
-                                        <button type='submit' className='btn btn-warning px-5 py-2'>Send Message
+                                        <button type='submit' className='btn btn-warning px-5 py-2' onClick={contactForm}>Send Message
                                         </button>
                                     </div>
                                 </form>

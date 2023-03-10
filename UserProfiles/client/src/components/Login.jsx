@@ -1,7 +1,34 @@
-import React from 'react'
-import { NavLink } from "react-router-dom"
+import React, { useState } from 'react'
+import { NavLink, useNavigate } from "react-router-dom"
 
 const Login = () => {
+    const navigate = useNavigate();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const loginUser = async (e) => {
+        e.preventDefault();
+        const res = await fetch("http://localhost:3000/signin", {
+            method: "POST",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            withCredentials: true,
+            crossorigin: true,
+            mode: 'no-cors',
+            credentials: "include",
+            body: JSON.stringify({ email, password })
+        });
+        const data = await res.json();
+        if (res.status === 200) {
+            alert("Login Successfully");
+            navigate("/");
+        }
+        else {
+            alert("Invalid Credentials");
+        }
+    }
     return (
         <>
             <section>
@@ -17,17 +44,17 @@ const Login = () => {
                                 <NavLink className="mx-2 text-success text-wrap" to="/signup">Click here
                                 </NavLink>
                             </h6>
-                            <form className='p-4 register-from' id='register-form'>
+                            <form method="POST" className='p-4 register-from' id='register-form'>
                                 <div className="form-group m-4 p-1">
                                     <label htmlFor="email">Email</label>
-                                    <input type="email" className="form-control bg-transparent border-3 border-dark" name="email" id="email" placeholder="Enter email" />
+                                    <input type="email" className="form-control bg-transparent border-3 border-dark" value={email} onChange={(e) => setEmail(e.target.value)} name="email" id="email" placeholder="Enter email" />
                                 </div>
                                 <div className="form-group m-4 p-1">
                                     <label htmlFor="password">Password</label>
-                                    <input type="password" className="form-control bg-transparent border-3 border-dark" name="password" id="password" placeholder="Enter password" />
+                                    <input type="password" className="form-control bg-transparent border-3 border-dark" value={password} onChange={(e) => setPassword(e.target.value)} name="password" id="password" placeholder="Enter password" />
                                 </div>
                                 <div className="text-center">
-                                    <button name="signin" id="signin" className="btn btn-warning px-5">Login</button>
+                                    <button name="signin" id="signin" className="btn btn-warning px-5" onClick={loginUser}>Login</button>
                                 </div>
                             </form>
                         </div>

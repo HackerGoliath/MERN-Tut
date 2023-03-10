@@ -4,6 +4,10 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 require("../db/conn");
 const User = require("../models/userSchema");
+const authenticate = require("../middlewares/authenticate");
+const cookieParser = require('cookie-parser');
+
+router.use(cookieParser());
 
 router.get("/", (req, res) => {
     res.send("Home Page Router")
@@ -63,15 +67,14 @@ router.post("/signin", async (req, res) => {
             return res.status(422).json({ error: "Please fill the form correctly" });
         }
         const userExist = await User.findOne({ email: email })
-        // console.log(userExist)
         if (userExist) {
             const isMatch = await bcrypt.compare(password, userExist.password);
             const token = await userExist.generateAuthToken();
-            console.log(token);
-            res.cookie("jwtoken", token, {
+            res.cookie("jwtToken", token, {
                 expires: new Date(Date.now() + 25892000000),
                 httpOnly: true
             });
+
 
             if (isMatch) {
                 res.status(200).json({ error: "User Login Successfully" });
@@ -88,6 +91,38 @@ router.post("/signin", async (req, res) => {
     } catch (error) {
         console.log(error);
     }
+})
+
+// About us page
+router.get("/about", authenticate, (req, res) => {
+    res.send(req.rootUser);
+});
+
+// Get user data for contact us and home page
+router.get("/getdata", authenticate, (req, res) => {
+    res.send(req.rootUser);
+})
+
+// Contact Us Page
+router.post("/contact", authenticate, async (req, res) => {
+    try {
+        const { name, email, phone, message } = req.body
+
+        if (!name || !email || !phone || !message) {
+            console.log("Error in contact form");
+            return res.json({ error: "Plzz fill the form correctly" })
+        }
+        const userContact = await User.findOne({ _id: req.userID })
+
+        if (userContact) {
+            const userMessage = await userContact.addMessage(name, email, phone, message);
+            await userContact.save();
+            res.status(201).json({ message: "User contact successfully" });
+        }
+    } catch (err) {
+        console.log(err);
+    }
+
 })
 
 

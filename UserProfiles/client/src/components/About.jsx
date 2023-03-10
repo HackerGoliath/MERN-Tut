@@ -1,10 +1,43 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from "react-router-dom";
 
 const About = () => {
+    const navigate = useNavigate();
+    const [userData, setUserData] = useState({});
+    const callAboutPage = async () => {
+        try {
+            const res = await fetch("http://localhost:3000/about", {
+                method: "GET",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                },
+                withCredentials: true,
+                crossorigin: true,
+                mode: 'no-cors',
+                credentials: "include"
+            });
+            const data = await res.json();
+            console.log(data);
+            setUserData(data)
+
+            if (!res.status === 200) {
+                const error = new Error(res.error);
+                throw error;
+            }
+        } catch (error) {
+            console.log(error);
+            navigate("/login");
+        }
+    }
+    useEffect(() => {
+        callAboutPage();
+    }, [])
+
     return (
         <>
             <div className="container emp_profile shadow-lg p-5 mt-5 rounded mybg">
-                <form method=''>
+                <form method='GET'>
                     <div className="row">
                         <div className="col-md-4">
                             <div className="profile-img">
@@ -14,16 +47,16 @@ const About = () => {
 
                         <div className="col-md-6">
                             <div className="profile-head">
-                                <h5>Deepak Babu</h5>
-                                <h6>Web Developer</h6>
+                                <h5>{userData.name}</h5>
+                                <h6>{userData.work}</h6>
                                 <p className='profile_rating mt-3 mb-5'>RANKINGS: <span>1/10</span></p>
 
                                 <ul className="nav" role="tablist">
                                     <li className="nav-item mx-2">
-                                        <a class="text-decoration-none" data-bs-toggle="collapse" href="#home" role="button" aria-expanded="true" aria-controls="home">About</a>
+                                        <a className="text-decoration-none" data-bs-toggle="collapse" href="#home" role="button" aria-expanded="true" aria-controls="home">About</a>
                                     </li>
                                     <li className="nav-item mx-2">
-                                        <a class="text-decoration-none" data-bs-toggle="collapse" href="#profile" role="button" aria-expanded="false" aria-controls="profile">Timeline</a>
+                                        <a className="text-decoration-none" data-bs-toggle="collapse" href="#profile" role="button" aria-expanded="false" aria-controls="profile">Timeline</a>
                                     </li>
                                 </ul>
                                 <hr />
@@ -66,7 +99,7 @@ const About = () => {
                                             <label>Name</label>
                                         </div>
                                         <div className="col-md-6">
-                                            <p>Deepak Bhai</p>
+                                            <p>{userData.name}</p>
                                         </div>
                                     </div>
                                     <div className="row mt-3">
@@ -74,7 +107,7 @@ const About = () => {
                                             <label>Email</label>
                                         </div>
                                         <div className="col-md-6">
-                                            <p>deepak@bhai.com</p>
+                                            <p>{userData.email}</p>
                                         </div>
                                     </div>
                                     <div className="row mt-3">
@@ -82,7 +115,7 @@ const About = () => {
                                             <label>Phone</label>
                                         </div>
                                         <div className="col-md-6">
-                                            <p>9856325874</p>
+                                            <p>{userData.phone}</p>
                                         </div>
                                     </div>
                                     <div className="row mt-3">
@@ -90,7 +123,7 @@ const About = () => {
                                             <label>Profession</label>
                                         </div>
                                         <div className="col-md-6">
-                                            <p>Web Developer</p>
+                                            <p>{userData.work}</p>
                                         </div>
                                     </div>
                                 </div>
