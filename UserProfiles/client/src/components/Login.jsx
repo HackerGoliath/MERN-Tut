@@ -1,7 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { NavLink, useNavigate } from "react-router-dom"
+import { UserContext } from '../App';
 
 const Login = () => {
+    const { state, dispatch } = useContext(UserContext);
+
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -22,6 +25,7 @@ const Login = () => {
         });
         const data = await res.json();
         if (res.status === 200) {
+            dispatch({ type: "USER", payload: true })
             alert("Login Successfully");
             navigate("/");
         }
