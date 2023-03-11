@@ -6,8 +6,9 @@ import About from "./components/About"
 import Contact from "./components/Contact"
 import Signup from "./components/Signup"
 import Login from "./components/Login"
+import Logout from './components/Logout';
 import ErrorPage from './components/ErrorPage';
-import ToggleData from './components/ToggleData';
+// import ToggleData from './components/ToggleData';
 
 function App() {
 
@@ -20,8 +21,9 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/logout" element={<Logout />} />
         <Route path="*" element={<ErrorPage />} />
-        <Route path="/toggle" element={<ToggleData />} />
+        {/* <Route path="/toggle" element={<ToggleData />} /> */}
       </Routes>
     </>
   )

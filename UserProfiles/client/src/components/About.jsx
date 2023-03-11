@@ -9,7 +9,7 @@ const About = () => {
             const res = await fetch("http://localhost:3000/about", {
                 method: "GET",
                 headers: {
-                    "Accept": "application/json",
+                    Accept: "application/json",
                     "Content-Type": "application/json"
                 },
                 withCredentials: true,

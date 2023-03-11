@@ -11,7 +11,7 @@ const Login = () => {
         const res = await fetch("http://localhost:3000/signin", {
             method: "POST",
             headers: {
-                "Accept": "application/json",
+                Accept: "application/json",
                 "Content-Type": "application/json"
             },
             withCredentials: true,

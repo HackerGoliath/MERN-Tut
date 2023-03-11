@@ -70,6 +70,7 @@ router.post("/signin", async (req, res) => {
         if (userExist) {
             const isMatch = await bcrypt.compare(password, userExist.password);
             const token = await userExist.generateAuthToken();
+            // localStorage.setItem("token", token);
             res.cookie("jwtToken", token, {
                 expires: new Date(Date.now() + 25892000000),
                 httpOnly: true
@@ -122,7 +123,13 @@ router.post("/contact", authenticate, async (req, res) => {
     } catch (err) {
         console.log(err);
     }
+});
 
+// Logout Page
+router.get("/logout", (req, res) => {
+    console.log("Logout Page");
+    res.clearCookie("jwtToken", { path: "/" });
+    res.status(200).send("User Logout")
 })
 
 
